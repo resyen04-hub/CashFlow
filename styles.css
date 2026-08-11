@@ -285,6 +285,34 @@ table.ledger input[type="checkbox"] { width: 15px; height: 15px; accent-color: v
   .field-grid { grid-template-columns: 1fr 1fr; }
   section.panel { padding: 1.25rem 1rem 1rem; }
   .panel-head { flex-wrap: wrap; gap: 0.6rem; }
+
+  .table-scroll { overflow-x: visible; }
+  table.ledger { min-width: 0; }
+  table.ledger thead { display: none; }
+  table.ledger, table.ledger tbody, table.ledger tr, table.ledger td { display: block; width: 100%; }
+  table.ledger tr {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.7rem 2.4rem 0.7rem 0.8rem;
+    margin-bottom: 0.6rem;
+    position: relative;
+  }
+  table.ledger tr:last-child { margin-bottom: 0; }
+  table.ledger td { border-bottom: none; padding: 0.28rem 0; white-space: normal; }
+  table.ledger td.chk { position: absolute; top: 0.65rem; right: 0.7rem; padding: 0; }
+  table.ledger td[data-label] { display: flex; align-items: baseline; gap: 0.6rem; }
+  table.ledger td[data-label]::before {
+    content: attr(data-label);
+    flex: 0 0 82px;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+  }
+  table.ledger td.amt { text-align: left; }
+  .empty-row td { padding: 1rem 0; }
 }
 
 @media (max-width: 420px) {
@@ -292,5 +320,4 @@ table.ledger input[type="checkbox"] { width: 15px; height: 15px; accent-color: v
   .controls { width: 100%; justify-content: space-between; }
   .field-grid { grid-template-columns: 1fr; }
   .brand .mark { font-size: 1.7rem; }
-  table.ledger { min-width: 480px; }
 }

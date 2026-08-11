@@ -170,10 +170,10 @@
       var dateDisplay = d.toLocaleDateString("id-ID", { day: "2-digit", month: "short" }) + ", " + t.time;
       tr.innerHTML =
         '<td class="chk"><input type="checkbox" class="row-check" data-id="' + t.id + '" aria-label="Pilih catatan"></td>' +
-        '<td class="date">' + dateDisplay + '</td>' +
-        '<td class="desc">' + t.desc + '</td>' +
-        '<td class="cat">' + t.source + '</td>' +
-        '<td class="amt ' + dir + '">' +
+        '<td class="date" data-label="Tanggal">' + dateDisplay + '</td>' +
+        '<td class="desc" data-label="Keterangan">' + t.desc + '</td>' +
+        '<td class="cat" data-label="Sumber">' + t.source + '</td>' +
+        '<td class="amt ' + dir + '" data-label="Jumlah">' +
           '<span class="money" data-idr="' + t.idr + '">' + sign + formatMoney(Math.abs(t.idr)) + '</span>' +
         '</td>';
       body.appendChild(tr);
