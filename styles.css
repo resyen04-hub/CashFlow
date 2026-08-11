@@ -87,7 +87,8 @@ header.top {
   font-size: 0.8rem;
   font-weight: 500;
   letter-spacing: 0.04em;
-  padding: 0.5rem 0.9rem;
+  padding: 0.55rem 0.9rem;
+  min-height: 38px;
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
 }
@@ -159,7 +160,8 @@ section.panel {
 .legend .i-in i { background: var(--inflow); }
 .legend .i-out i { background: var(--outflow); }
 
-svg.chart { width: 100%; height: auto; display: block; }
+.chart-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -0.25rem; padding: 0 0.25rem; }
+svg.chart { width: 100%; min-width: 560px; height: auto; display: block; }
 svg.chart .grid-line { stroke: var(--rule-soft); stroke-width: 1; }
 svg.chart .axis-label { fill: var(--ink-soft); font-family: 'IBM Plex Mono', monospace; font-size: 10px; }
 svg.chart .month-label { fill: var(--ink-soft); font-family: 'Inter', sans-serif; font-size: 11px; }
@@ -184,14 +186,16 @@ svg.chart .empty-note { fill: var(--ink-soft); font-family: 'Inter', sans-serif;
 
 .field input, .field select {
   font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
+  font-size: 1rem;
   text-transform: none;
   letter-spacing: normal;
   color: var(--ink);
   background: var(--paper);
   border: 1px solid var(--rule);
   border-radius: var(--radius);
-  padding: 0.55rem 0.6rem;
+  padding: 0.6rem 0.6rem;
+  width: 100%;
+  min-width: 0;
 }
 
 .field input:focus, .field select:focus {
@@ -216,7 +220,8 @@ svg.chart .empty-note { fill: var(--ink-soft); font-family: 'Inter', sans-serif;
 
 .submit-btn:hover { opacity: 0.85; }
 
-table.ledger { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -0.25rem; padding: 0 0.25rem; }
+table.ledger { width: 100%; min-width: 520px; border-collapse: collapse; font-size: 0.85rem; }
 table.ledger th {
   text-align: left;
   font-size: 0.7rem;
@@ -226,13 +231,14 @@ table.ledger th {
   font-weight: 500;
   padding: 0 0 0.6rem;
   border-bottom: 1px solid var(--rule);
+  white-space: nowrap;
 }
 table.ledger td { padding: 0.65rem 0; border-bottom: 1px solid var(--rule-soft); vertical-align: middle; }
 table.ledger tr:last-child td { border-bottom: none; }
 table.ledger td.date { color: var(--ink-soft); font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; white-space: nowrap; }
-table.ledger td.desc { font-weight: 500; }
-table.ledger td.cat { color: var(--ink-soft); }
-table.ledger td.amt { text-align: right; font-family: 'IBM Plex Mono', monospace; font-variant-numeric: tabular-nums; }
+table.ledger td.desc { font-weight: 500; white-space: nowrap; }
+table.ledger td.cat { color: var(--ink-soft); white-space: nowrap; }
+table.ledger td.amt { text-align: right; font-family: 'IBM Plex Mono', monospace; font-variant-numeric: tabular-nums; white-space: nowrap; padding-right: 0.15rem; }
 table.ledger td.amt.in { color: var(--inflow); }
 table.ledger td.amt.out { color: var(--outflow); }
 
@@ -273,8 +279,18 @@ table.ledger input[type="checkbox"] { width: 15px; height: 15px; accent-color: v
 .delete-btn:hover { background: var(--outflow-bg); }
 
 @media (max-width: 640px) {
+  .wrap { padding: 1.75rem 1rem 3rem; }
   .cards { grid-template-columns: 1fr; }
+  .card .value { font-size: 1.3rem; word-break: break-word; }
   .field-grid { grid-template-columns: 1fr 1fr; }
-  table.ledger td.cat { display: none; }
-  table.ledger th:nth-child(3) { display: none; }
+  section.panel { padding: 1.25rem 1rem 1rem; }
+  .panel-head { flex-wrap: wrap; gap: 0.6rem; }
+}
+
+@media (max-width: 420px) {
+  header.top { align-items: flex-start; }
+  .controls { width: 100%; justify-content: space-between; }
+  .field-grid { grid-template-columns: 1fr; }
+  .brand .mark { font-size: 1.7rem; }
+  table.ledger { min-width: 480px; }
 }
