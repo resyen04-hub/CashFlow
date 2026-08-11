@@ -1,122 +1,147 @@
 <!DOCTYPE html>
 <html lang="id" data-theme="light">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pembukuan — arus kas</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pembukuan — Arus Kas | Studio Ridho</title>
+  
+  <!-- Preconnect & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="wrap">
+  <div class="wrap">
 
-  <header class="top">
-    <div class="brand">
-      <div class="mark">Pembukuan.</div>
-      <div class="sub">Uang masuk dan uang keluar — Studio Ridho </div>
-    </div>
-    <div class="controls">
-      <div class="stamp-toggle" role="group" aria-label="Mata uang tampilan">
-        <button type="button" id="btn-idr" class="active">Rp</button>
-        <button type="button" id="btn-usd">$</button>
+    <!-- Header -->
+    <header class="top">
+      <div class="brand">
+        <h1 class="mark">Pembukuan.</>
+        <div class="sub">Uang masuk dan uang keluar — Studio Ridho</div>
       </div>
-      <button type="button" class="theme-switch" id="theme-toggle" aria-label="Ganti mode terang dan gelap">
-        <span class="thumb" id="theme-thumb">☀</span>
-      </button>
-    </div>
-  </header>
+      <div class="controls">
+        <div class="stamp-toggle" role="group" aria-label="Mata uang tampilan">
+          <button type="button" id="btn-idr" class="active" aria-pressed="true">Rp</button>
+          <button type="button" id="btn-usd" aria-pressed="false">$</button>
+        </div>
+        <button type="button" class="theme-switch" id="theme-toggle" aria-label="Ganti mode terang dan gelap">
+          <span class="thumb" id="theme-thumb" aria-hidden="true">☀</span>
+        </button>
+      </div>
+    </header>
 
-  <div class="cards">
-    <div class="card">
-      <div class="label">Saldo</div>
-      <div class="value money" id="card-balance" data-idr="63340000">Rp 63.340.000</div>
-    </div>
-    <div class="card income">
-      <div class="label">Total pemasukan</div>
-      <div class="value money" id="card-income" data-idr="0">Rp 0</div>
-    </div>
-    <div class="card expense">
-      <div class="label">Total pengeluaran</div>
-      <div class="value money" id="card-expense" data-idr="0">Rp 0</div>
-    </div>
+    <main id="main-content">
+      <!-- Cards Overview -->
+      <section class="cards" aria-label="Ringkasan Keuangan">
+        <article class="card">
+          <span class="label">Saldo Total</span>
+          <div class="value money" id="card-balance" data-idr="63340000">Rp 63.340.000</div>
+        </article>
+        <article class="card income">
+          <span class="label">Total Pemasukan</span>
+          <div class="value money" id="card-income" data-idr="0">Rp 0</div>
+        </article>
+        <article class="card expense">
+          <span class="label">Total Pengeluaran</span>
+          <div class="value money" id="card-expense" data-idr="0">Rp 0</div>
+        </article>
+      </section>
+
+      <!-- Chart Panel -->
+      <section class="panel">
+        <header class="panel-head">
+          <h2>Pemasukan & Pengeluaran Per Bulan</h2>
+          <div class="legend" aria-hidden="true">
+            <span class="i-in"><i></i>Pemasukan</span>
+            <span class="i-out"><i></i>Pengeluaran</span>
+          </div>
+        </header>
+        <div class="chart-container">
+          <svg class="chart" id="chart" viewBox="0 0 640 260" role="img" aria-label="Grafik garis pemasukan dan pengeluaran per bulan"></svg>
+        </div>
+      </section>
+
+      <!-- Form Panel -->
+      <section class="panel">
+        <header class="panel-head">
+          <h2>Tambah Catatan Transaksi</h2>
+        </header>
+        <form id="entry-form" class="entry-form">
+          <div class="field-row">
+            <div class="stamp-toggle" role="group" aria-label="Jenis transaksi" id="type-toggle">
+              <button type="button" data-type="income" class="active" aria-pressed="true">Pemasukan</button>
+              <button type="button" data-type="expense" aria-pressed="false">Pengeluaran</button>
+            </div>
+          </div>
+
+          <div class="field-grid">
+            <label class="field">
+              <span>Jumlah (Rp)</span>
+              <input type="number" id="f-amount" min="0" step="1000" placeholder="Contoh: 500000" required>
+            </label>
+
+            <label class="field">
+              <span>Sumber / Kategori</span>
+              <select id="f-source" required>
+                <!-- Opsi diisi via JS -->
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Tanggal</span>
+              <input type="date" id="f-date" required>
+            </label>
+
+            <label class="field">
+              <span>Jam</span>
+              <input type="time" id="f-time" required>
+            </label>
+
+            <label class="field field-wide">
+              <span>Catatan / Detail</span>
+              <input type="text" id="f-note" placeholder="Detail opsional (misal: DP Desain Logo Client X)">
+            </label>
+          </div>
+
+          <button type="submit" class="submit-btn">+ Tambah Transaksi</button>
+        </form>
+      </section>
+
+      <!-- Ledger Panel -->
+      <section class="panel">
+        <header class="panel-head">
+          <h2>Aktivitas Transaksi</h2>
+          <div class="panel-actions">
+            <button type="button" class="btn-secondary" id="export-btn">Export CSV</button>
+            <button type="button" class="delete-btn" id="delete-selected" disabled>Hapus Terpilih</button>
+          </div>
+        </header>
+        
+        <div class="table-responsive">
+          <table class="ledger">
+            <thead>
+              <tr>
+                <th class="chk">
+                  <input type="checkbox" id="select-all" aria-label="Pilih semua transaksi">
+                </th>
+                <th>Waktu</th>
+                <th>Keterangan</th>
+                <th>Sumber</th>
+                <th class="amt">Jumlah</th>
+              </tr>
+            </thead>
+            <tbody id="ledger-body">
+              <!-- Data riwayat akan dirender di sini via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
   </div>
 
-  <section class="panel">
-    <div class="panel-head">
-      <h2>Pemasukan dan pengeluaran per bulan</h2>
-      <div class="legend">
-        <span class="i-in"><i></i>Pemasukan</span>
-        <span class="i-out"><i></i>Pengeluaran</span>
-      </div>
-    </div>
-    <svg class="chart" id="chart" viewBox="0 0 640 260" role="img" aria-label="Grafik garis pemasukan dan pengeluaran per bulan"></svg>
-  </section>
-
-  <section class="panel">
-    <div class="panel-head">
-      <h2>Tambah catatan</h2>
-    </div>
-    <form id="entry-form" class="entry-form">
-      <div class="field-row">
-        <div class="stamp-toggle" role="group" aria-label="Jenis catatan" id="type-toggle">
-          <button type="button" data-type="income" class="active">Pemasukan</button>
-          <button type="button" data-type="expense">Pengeluaran</button>
-        </div>
-      </div>
-
-      <div class="field-grid">
-        <label class="field">
-          <span>Jumlah (Rp)</span>
-          <input type="number" id="f-amount" min="0" step="1000" placeholder="0" required>
-        </label>
-
-        <label class="field">
-          <span>Sumber</span>
-          <select id="f-source"></select>
-        </label>
-
-        <label class="field">
-          <span>Tanggal</span>
-          <input type="date" id="f-date" required>
-        </label>
-
-        <label class="field">
-          <span>Jam</span>
-          <input type="time" id="f-time" required>
-        </label>
-
-        <label class="field field-wide">
-          <span>Catatan</span>
-          <input type="text" id="f-note" placeholder="Detail opsional, misalnya nama klien atau vendor">
-        </label>
-      </div>
-
-      <button type="submit" class="submit-btn">Tambah catatan</button>
-    </form>
-  </section>
-
-  <section class="panel">
-    <div class="panel-head">
-      <h2>Aktivitas</h2>
-      <button type="button" class="delete-btn" id="delete-selected">Hapus terpilih</button>
-    </div>
-    <table class="ledger">
-      <thead>
-        <tr>
-          <th class="chk"><input type="checkbox" id="select-all" aria-label="Pilih semua"></th>
-          <th>Tanggal</th>
-          <th>Keterangan</th>
-          <th>Sumber</th>
-          <th class="amt">Jumlah</th>
-        </tr>
-      </thead>
-      <tbody id="ledger-body"></tbody>
-    </table>
-  </section>
-
-</div>
-
-<script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
